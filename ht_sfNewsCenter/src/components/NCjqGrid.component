@@ -1,0 +1,6 @@
+<apex:component >
+    <apex:includeScript value="{!URLFOR($Resource.NCjqGrid, 'js/i18n/grid.locale-en.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.NCjqGrid, 'js/jquery.jqGrid.min.js')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.NCjqGrid,'css/ui.jqgrid.css')}"/>
+
+</apex:component>

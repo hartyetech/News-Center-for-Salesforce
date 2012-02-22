@@ -1,0 +1,76 @@
+<apex:page controller="GoogleAlertToChatterSettingsController" tabstyle="Chatter_News_Alerts_Setup__tab">
+  <apex:form >
+    <apex:sectionHeader title="Chatter News Alerts" subtitle="Setup Guide">
+      <apex:image url="{!$Resource.ChatterNewsAlertsLogo}" style="float:right; margin-top:-60px; margin-right:10px;"/>
+
+      <apex:pageBlock title="{!$Label.CNA_Step_1}">
+        <ul style="font-size:125%;"><li>
+          {!$Label.CNA_Step_1_1a} <a href="/email/admin/listEmailServicesFunction.apexp" target="_blank">{!$Label.CNA_Step_1_1link}</a> 
+          {!$Label.CNA_Step_1_1b}
+          <ul><li>{!$Label.CNA_Step_1_1_1}</li>
+              <li>{!$Label.CNA_Step_1_1_2}</li>
+              <li>{!$Label.CNA_Step_1_1_3}</li>
+              <li>{!$Label.CNA_Step_1_1_4}
+                <p/><apex:image url="{!$Resource.setupImage_emailSettings1}"/><br/><br/></li>
+              <li>{!$Label.CNA_Step_1_1_5}</li>
+              <li>{!$Label.CNA_Step_1_1_6}
+                <p/><apex:image url="{!$Resource.setupImage_emailSettings2}"/><br/><br/></li></ul>
+        </li><li>
+          {!$Label.CNA_Step_1_2a}<br/>
+          <span style="color:red;">{!$Label.CNA_Step_1_2b}</span> &nbsp;<apex:inputText value="{!emailServiceAddress}" size="50"/> {!$Label.CNA_Step_1_2c} &nbsp;
+          <apex:commandButton action="{!updateAddress}" value="Save"/> &nbsp;&nbsp; 
+          <apex:image url="{!$Resource.GreenCheckMark}" width="14" height="16" rendered="{!showCheckMark}"/>
+          <apex:messages style="color:red;" />
+        </li></ul>
+      </apex:pageBlock>
+      
+      <apex:pageBlock title="{!$Label.CNA_Step_2}"><span style="font-size:125%;">
+        {!$Label.CNA_Step_2_1}
+      </span></apex:pageBlock>
+      
+      <apex:pageBlock title="{!$Label.CNA_Step_3}"><span style="font-size:125%;">
+        {!$Label.CNA_Step_3_1}<p/>
+        {!$Label.CNA_Step_3_2}<p/>
+        {!$Label.CNA_Step_3_3}<p/>
+        {!$Label.CNA_Step_3_4}
+        
+        <apex:outputPanel id="blacklistSection" layout="block" style="padding:2eM 2eM 0 2eM;" rendered="{!showBlacklistSection}">
+          <b>Blacklisting News Sources</b><br/>
+          You can choose to NOT receive Chatter News Alerts from specific news sources. Enter their websites 
+          in the box below; separate each website on its own line.  For example, to block alerts from the
+          New York Times and Wall Street Journal Blogs, enter as follows:
+          <pre>&nbsp;&nbsp;www.nytimes.com<br/>&nbsp;&nbsp;blogs.wsj.com</pre>
+          <apex:inputTextArea rows="5" cols="25" value="{!newsSourceBlacklist}"/>
+          <apex:commandButton style="margin-left:1eM;" action="{!updateBlacklist}" value="Save" reRender="blacklistSection"/> &nbsp;&nbsp; 
+          <apex:image url="{!$Resource.GreenCheckMark}" width="14" height="16" rendered="{!showBlacklistCheckmark}"/>
+          <p/>
+          <b>Limiting the Number of Stories Posted</b><br/>
+          If you are seeing too much chatter on your accounts (especially newsworthy ones), you can put an 
+          upper limit on the number of stories that are posted from each Google Alert email.  Leaving this 
+          blank or setting it to 0 will create a chatter post from every story included in each alert. Entering
+          5, for example, will create a chatter post from the first 5 stories included in each alert; the rest
+          of the stories in that particular alert will be ignored.<br/>
+          <span style="color:red;">Maximum stories to post per alert</span> &nbsp;&nbsp; 
+          <apex:inputText size="3" value="{!maxStoriesPerAlert}"/> &nbsp;&nbsp;
+          <apex:commandButton action="{!updateMaxStories}" value="Save" reRender="blacklistSection"/> &nbsp;&nbsp; 
+          <apex:image url="{!$Resource.GreenCheckMark}" width="14" height="16" rendered="{!showMaxStoriesCheckmark}"/>
+        </apex:outputPanel>
+      </span></apex:pageBlock> 
+      
+      <apex:pageBlock title="{!$Label.CNA_Step_4}"><span style="font-size:125%;">
+        {!$Label.CNA_Step_4_1}
+        <ul><li>{!$Label.CNA_Step_4_2}</li>
+        <li>{!$Label.CNA_Step_4_3a} <a href="/email/admin/listEmailServicesFunction.apexp" target="_blank">{!$Label.CNA_Step_4_3link}</a> 
+            {!$Label.CNA_Step_4_3b}</li>
+        <li><a href="/0A3" target="_blank">{!$Label.CNA_Step_4_4link}</a></li>
+        <li>{!$Label.CNA_Step_4_5}</li></ul> 
+      </span></apex:pageBlock>
+      
+      <apex:pageBlock title="{!$Label.CNA_Step_5}"><span style="font-size:125%;">
+        {!$Label.CNA_Step_5_1a} <a href="http://community.salesforce.com/t5/Force-com-Labs-Development-and/bd-p/labs" target="_blank">{!$Label.CNA_Step_5_1link}</a><p/>
+        {!$Label.CNA_Step_5_2a} <a href="http://sites.force.com/appexchange/listingDetail?listingId=a0N30000003GJFrEAO" target="_blank">{!$Label.CNA_Step_5_2link}</a>
+      </span></apex:pageBlock>
+      
+    </apex:sectionHeader>
+  </apex:form>
+</apex:page>

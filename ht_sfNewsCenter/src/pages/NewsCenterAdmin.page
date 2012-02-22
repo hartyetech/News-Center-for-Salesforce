@@ -1,0 +1,88 @@
+<apex:page standardstylesheets="false" controller="NCRemotes">
+<c:NCjQuery />
+<c:NCDataTables />
+
+
+
+
+<script type="text/javascript">
+    var j$ = jQuery.noConflict();
+
+    j$(document).ready(function(){
+        j$('#adminTabs').tabs();    
+        
+        j$('#delSelInt').button();      
+				
+				getAllInterests();
+				
+				
+    
+    });
+
+    function getAllInterests(){
+        NCRemotes.getAllInterests(handleInterests);
+    }
+    
+    function handleInterests(result,event){
+        if(event.type == 'exception'){
+            alert(event.message);
+        }else{
+            showInterests(result);
+        }
+    }
+    
+    function showInterests(interests){
+        j$.each(interests, function(i, interest){
+        
+            var intRow = j$("<tr><td>" + interest.Id + "</td><td>" + interest.Name + "</td></tr>");
+            var checkCol;
+            j$('#intGrid').append(intRow);
+        
+        });   
+
+        j$('#intGrid').dataTable({
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers"
+        });  
+        
+        j$('#delSelInt').click(function(){
+       
+        
+        });
+     }
+
+</script>
+<div id="ncAdmin" style="width:700px;">
+<table id="intGrid">
+<thead>
+<tr>
+<th>Id</th><th>Name</th>
+</tr>
+</thead>
+</table>
+</div>
+
+<a href="#" id="delSelInt">Delete Selected Records</a>
+
+
+
+<div id="adminTabs" style="width:700px;">
+
+<ul>
+    <li><a href="#installTab">Install Guide</a></li>
+    <li><a href="#cleanUpTab">Clean Up</a></li>
+    <li><a href="#hartyeTab">Hartye Technology</a></li>
+</ul>
+
+<div id="installTab" style="font-family:Arial, Helvetica, sans-serif;">
+
+</div>
+<div id="cleanUpTab" style="font-family:Arial, Helvetica, sans-serif;">
+
+</div>
+<div id="hartyeTab" style="font-family:Arial, Helvetica, sans-serif;">
+
+</div>
+
+</div>
+</apex:page>

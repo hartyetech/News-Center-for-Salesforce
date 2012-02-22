@@ -1,0 +1,16 @@
+<apex:component >
+
+    <apex:stylesheet value="{!URLFOR($Resource.NCjQuery,'jquery-ui-1.8.17/css/redmond/jquery-ui-1.8.17.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.NCjQuery, 'jquery-ui-1.8.17/js/jquery-1.7.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.NCjQuery, 'jquery-ui-1.8.17/js/jquery-ui-1.8.17.min.js')}" />
+    
+    
+    <!-- this function can be used to parse salesforce javascript ids 
+    <script type="text/javascript">
+          
+        function esc(myid) {
+               return '#' + myid.replace(/(:|\.)/g,'\\\\$1');
+        }
+    </script>
+    -->  
+</apex:component>

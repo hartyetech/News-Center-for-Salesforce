@@ -1,0 +1,62 @@
+<apex:page standardController="account">
+  <!-- ++Begin News Bar Wizard Generated Code++ --> 
+<!-- 
+// Created with a Google AJAX Search Wizard 
+// http://code.google.com/apis/ajaxsearch/wizards.html 
+--> 
+
+<!-- 
+// The Following div element will end up holding the actual newsbar. 
+// You can place this anywhere on your page. 
+--> 
+<div id="newsBar-bar" style="margin-top:6px;margin-bottom:5px;margin-left:5px;"> 
+<span style="color:#676767;font-size:11px;margin:10px;padding:4px;">Loading...</span> 
+</div> 
+
+<!-- Ajax Search Api and Stylesheet 
+// Note: If you are already using the AJAX Search API, then do not include it 
+// or its stylesheet again 
+--> 
+<script src="http://www.google.com/uds/api?file=uds.js&v=1.0&source=uds-nbw" 
+type="text/javascript"></script> 
+<style type="text/css"> 
+/*@import url("http://www.google.com/uds/css/gsearch.css");*/ 
+@import url("/sCSS/Theme2/en/common.css"); 
+</style> 
+
+<!-- News Bar Code and Stylesheet --> 
+<script type="text/javascript"> 
+window._uds_nbw_donotrepair = true; 
+</script> 
+<script src="http://www.google.com/uds/solutions/newsbar/gsnewsbar.js?mode=new" 
+type="text/javascript"></script> 
+<style type="text/css"> 
+@import url("http://www.google.com/uds/solutions/newsbar/gsnewsbar.css"); 
+.gsc-branding { 
+font-size:10px; 
+margin-left:5px; 
+margin-top:1px; 
+} 
+</style> 
+
+<script type="text/javascript"> 
+function LoadNewsBar() { 
+var newsBar; 
+var options = { 
+largeResultSet : true, 
+title : "{!Account.Name} News", 
+horizontal : true, 
+linkTarget : GSearch.LINK_TARGET_BLANK, 
+autoExecuteList : { 
+executeList : ["{!Account.Name}"] 
+} 
+} 
+
+newsBar = new GSnewsBar(document.getElementById("newsBar-bar"), options); 
+} 
+// arrange for this function to be called during body.onload 
+// event processing 
+GSearch.setOnLoadCallback(LoadNewsBar); 
+</script> 
+<!-- ++End News Bar Wizard Generated Code++ -->
+</apex:page>

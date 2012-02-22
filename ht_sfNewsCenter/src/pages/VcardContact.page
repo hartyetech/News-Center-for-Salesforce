@@ -1,0 +1,98 @@
+<apex:page standardcontroller="Contact" showheader="false">
+<style type="text/css">
+table.vCard {
+    border-width: 2px 2px 2px 2px;
+    border-spacing: 0px;
+    border-style: solid solid solid solid;
+    border-color: gray gray gray gray;
+    border-collapse: collapse;
+    background-color: #BBBBBB;
+}
+table.vCard th {
+    border-width: 2px 2px 2px 2px;
+    padding: 2px 2px 2px 2px;
+    border-style: none none none none;
+    border-color: gray gray gray gray;
+    background-color: white;
+    -moz-border-radius: 0px 0px 0px 0px;
+}
+table.vCard td {
+    border-width: 2px 2px 2px 2px;
+    padding: 2px 2px 2px 2px;
+    border-style: none none none none;
+    border-color: gray gray gray gray;
+    Font-family: Calibri, Arial;
+    Font-size: 11pt;
+    background-color: #EEEEEE;
+    -moz-border-radius: 0px 0px 0px 0px;
+}
+
+
+</style>
+
+<table class="vCard">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td width="10px"></td><td width="400px"><B>{!Contact.Name}</B></td>
+    <td width="20px"></td>
+</tr>
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td width="10px"></td><td>{!Contact.Account.Name}</td>
+    <td width="20px"></td>
+</tr>
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td width="10px"></td><td>{!Contact.Title}</td>
+    <td width="20px"></td>
+</tr>
+<apex:outputpanel rendered="{!NOT(Contact.Email='')}">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td width="10px"></td><td>{!Contact.Email}</td>
+    <td width="20px"></td>
+</tr>
+</apex:outputpanel>
+
+<apex:outputpanel rendered="{!NOT(Contact.MobilePhone='')}">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td width="10px"></td><td>{!Contact.MobilePhone}&nbsp;&nbsp;&nbsp; <font color="gray">(Mobile)</font></td>
+    <td width="20px"></td>
+</tr>
+</apex:outputpanel>
+<apex:outputpanel rendered="{!NOT(Contact.Phone='')}">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td width="10px"></td><td>{!Contact.Phone} &nbsp;&nbsp;&nbsp;<font color="gray">(Work)</font></td>
+    <td width="20px"></td>
+</tr>
+</apex:outputpanel>
+<apex:outputpanel rendered="{!NOT(Contact.HomePhone='')}">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td width="10px"></td><td>{!Contact.HomePhone}&nbsp;&nbsp;&nbsp;<font color="gray">(Home)</font></td>
+    <td width="20px"></td>
+</tr>
+</apex:outputpanel>
+<apex:outputpanel rendered="{!NOT(Contact.Fax='')}">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td width="10px"></td><td>{!Contact.Fax}&nbsp;&nbsp;&nbsp;<font color="gray">(Fax)</font></td>
+    <td width="20px"></td>
+</tr>
+</apex:outputpanel>
+
+<tr>
+<td width="40px" style="background-color:#BBBBBB;"></td><td width="10px"></td>
+<td>
+{!Contact.MailingStreet}<BR/>
+{!Contact.MailingCity}<BR/>
+{!Contact.MailingState}<BR/>
+{!Contact.MailingPostalCode}<BR/>
+{!Contact.MailingCountry}
+</td>
+<td width="20px"></td>
+</tr>
+<tr>
+<td width="40px" style="background-color:#BBBBBB;"></td><td width="10px"></td>
+<td>
+<a  href="/apex/GeneratevCardContact?id={!Contact.id}">Download</a>
+</td>
+<td width="20px"></td>
+</tr>
+</table>
+
+</apex:page>

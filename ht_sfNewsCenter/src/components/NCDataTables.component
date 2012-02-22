@@ -1,0 +1,6 @@
+<apex:component >
+    <apex:stylesheet value="{!URLFOR($Resource.NCDataTables,'css/demo_page.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.NCDataTables,'css/demo_table.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.NCDataTables,'css/demo_table_jui.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.NCDataTables, 'js/jquery.dataTables.min.js')}" />
+</apex:component>

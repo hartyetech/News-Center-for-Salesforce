@@ -1,0 +1,33 @@
+<apex:page id="NewsCenterPage" standardController="Google_Alert__c" title="News Center">
+
+    <c:NCjQuery />
+    
+    <script type="text/javascript">
+    
+    /*
+    var appStartTime = new Date();
+    
+    function logToConsole(txt){
+        var now = new Date();
+        j$('#console').append("<br><i> * " + (now.getTime() - appStartTime.getTime()) + "ms:</i> " + txt);
+    }    
+    */
+    
+    </script>
+
+    <c:NCSearchTerms />
+    
+    <script type="text/javascript">
+        if({!!ISNULL(Google_Alert__c.Name)}){
+            addInterest('{!Google_Alert__c.Name}');
+            addFilter('{!Google_Alert__c.Name}');
+        }
+    </script>
+
+    
+    <!-- uncomment to show debug console 
+    <p id="console">
+      <b>console:</b>
+    </p>
+    -->
+</apex:page>

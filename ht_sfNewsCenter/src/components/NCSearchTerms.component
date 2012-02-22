@@ -1,0 +1,532 @@
+<apex:component controller="NCRemotes">
+
+  <style>
+    .resultDiv{
+        padding-top:1em;
+    }
+    
+    .resLink{
+        font-weight:bold;
+        font-size:1.2em;
+        color:#36648B;
+        text-decoration:none;
+
+    }
+    
+    .resLink:hover{
+        font-weight:bold;
+        font-size:1.2em;
+        color:#36648B;
+        text-decoration:underline;    
+    }
+    
+    .resLinkDiv{
+        padding-bottom: 3px;    
+    }
+    
+    .timeSource{
+        font-size: 1em;
+        color: #777777;
+    }
+    
+
+    
+  </style>
+  <script type="text/javascript">
+    var j$ = jQuery.noConflict();
+
+    var resultsOnPage = 0;
+    var filters = [];
+    
+    var retrievingInterestResults = new Boolean();
+    
+    retrievingInterestResults = false; 
+    
+    j$(document).ready(function(){
+        var suggest;
+        var queryTerm;
+        
+        //logToConsole('jQuery Ready');     
+        
+        j$('#searchTerm').autocomplete({
+            
+            minLength: 2,
+            source: function(request, response) {
+                        queryTerm = request.term;
+                        NCRemotes.searchTermSuggest(request.term, function(result, event){
+                            //logToConsole('Request Term: ' + request.term);
+                            if(event.type == 'exception') {
+                                  //logToConsole(event.message);
+                            } else {
+                                 //logToConsole('remote result: ' + result);
+                                 suggest = result;
+                                 response(suggest);
+                            }
+                        });
+                   },
+            focus: function( event, ui ) {
+                    j$('#searchTerm').val( ui.item.value );
+                    return false;
+                    },
+            select: function( event, ui ) {
+                        j$('#searchTerm').val( ui.item.value );
+                        addInterest(j$('#searchTerm').val()); 
+                        return false;
+                    },
+         })
+         .data( 'autocomplete' )._renderItem = function( ul, item ) {
+            var entry = "<a>" + item.value;
+            entry = entry + "</a>";
+            entry = entry.replace(queryTerm, "<b>" + queryTerm + "</b>");
+            return j$( "<li></li>" )
+                .data( "item.autocomplete", item )
+                .append( entry )
+                .appendTo( ul );
+        };
+        
+        j$("#addInterest").button({
+            text:false,
+            icons: {
+                primary: 'ui-icon-plusthick'
+            }
+        });
+        
+        j$("#addInterest").click(function(event){
+            event.preventDefault(); 
+            addInterest(j$('#searchTerm').val());    
+        });
+        
+        j$('#searchTerm').keypress(function(e) {
+            if(e.keyCode == 13) {
+                j$("#addInterest").click();
+            }
+        });
+        
+        j$(window).scroll(function(){
+            var winTop = j$(window).scrollTop() + 250;
+            
+            if(winTop >= (j$(document).height() - (j$(window).height()))) {
+              //alert('get more content');
+              if(!retrievingInterestResults){getInterestResults();}
+            }
+        
+        });        
+        
+        j$( '#interestAddConfirm' ).hide();
+        j$( '#interestRemoveConfirm' ).hide();
+        
+        j$( '#infoIcon').mouseover(function(e){
+            showHelp();            
+        });
+        
+        getInterests();
+        getRecentInterests();
+        getActiveStories();
+        
+        //j$('#infoText').hide();
+    });
+    
+    function showFeedback(feedback){
+        j$('#feedbackText').html(feedback);
+        j$('#ncFeedback').show().delay(3000).fadeOut('slow');        
+    }
+    
+    function showHelp(){
+        j$( '#infoIcon').unbind('mouseover');
+    
+        j$('#ncInfo').addClass('ui-state-highlight ui-corner-all');
+        
+        j$('#ncInfo').css('margin-bottom','1em');
+        j$('#infoText').css('padding','.7em');
+        
+        var options = {};
+        
+        j$('#infoText').show('blind',options,500,function(){});    
+        
+        j$('#ncInfo').mouseleave(function(e){
+            hideHelp();
+        });
+    }
+    
+    function hideHelp(){
+        var options = {};
+        
+        j$('#infoText').hide('blind',options,500,function(){
+            j$('#ncInfo').removeClass('ui-state-highlight ui-corner-all');
+            j$('#ncInfo').css('margin-bottom','0em');
+        });  
+        
+        j$( '#infoIcon').mouseover(function(e){
+            showHelp();            
+        });  
+        
+        j$( '#ncInfo').unbind('mouseleave');
+    }
+    
+    function addInterest(interest){
+		    NCRemotes.addInterest(interest, function(result, event){
+		        if(event.type == 'exception') {
+		              //logToConsole(event.message);
+		        }
+		        if(result){
+                showFeedback('Interest Added');
+		            getInterests();              
+		        }  
+		        j$('#searchTerm').val('');           
+		    });
+    }
+    
+    function createInterestBtn(intName, intId, btnSpan){
+        var filterBtn = j$("<a href='#' class='intFilterBtn'>" + intName + "</a>");
+        var remBtn = j$("<a class='intRemoveBtn' href='#'>Remove Interest</a>");        
+        filterBtn.click(function(e){
+            addFilter(intName);
+        });
+        remBtn.click(function(e){
+            removeInterest(intId);
+        });
+        remBtn.button( {
+            text:false,
+            icons: {
+                primary: 'ui-icon-closethick'
+            }
+        });
+        btnSpan.append(filterBtn, remBtn);
+        btnSpan.buttonset();    
+    }
+    
+    function createChatterBtn(intId, btnSpan){
+        var chatterBtn = j$("<a href='/" + intId + "?activeTab=1' target='_blank' title='Chatter Activity' class='chatterBtn'></a>");
+        
+        var followBtn = j$("<a href='#' title='' class='chatterBtn'>follow</a>");
+
+        var feedCount='0';
+        
+        followBtn.click(function(e){
+	        NCRemotes.toggleChatterFollow(intId, function(result, event){
+	            if(event.type == 'exception') {
+	                  //logToConsole(event.message);
+	            } else {
+                if(result){
+                  followBtn.button({icons:{primary:'ui-icon-check'}});
+                  followBtn.attr('title','Stop following this story in Chatter');
+                }else{
+                  followBtn.button({icons:{primary:'ui-icon-plusthick'}});
+                  followBtn.attr('title','Follow this story in Chatter');
+                }
+	            }
+	        });         
+        });
+        
+        NCRemotes.getFeedCount(intId, function(result, event){
+            if(event.type == 'exception') {
+                  //logToConsole(event.message);
+            } else {
+                 feedCount=result;
+                 chatterBtn.button({label:feedCount});
+            }
+        });
+        
+        NCRemotes.chatterFollower(intId, function(result, event){
+            if(event.type == 'exception') {
+                  //logToConsole(event.message);
+            } else {
+                if(result){
+                  followBtn.button({icons:{primary:'ui-icon-check'}});
+                  followBtn.attr('title','Stop following this story in Chatter');
+                }else{
+                  followBtn.button({icons:{primary:'ui-icon-plusthick'}});
+                  followBtn.attr('title','Follow this story in Chatter');
+                }
+            }
+        });
+        
+        followBtn.button( {
+            text: false,
+            icons: {
+                primary: 'ui-icon-plusthick'
+            }       
+            
+        });        
+        
+        chatterBtn.button( {
+            label: feedCount,
+            icons: {
+                primary: 'ui-icon-comment'
+            }
+        });
+        btnSpan.append(followBtn,chatterBtn);  
+        
+        btnSpan.buttonset();
+    }
+    
+    function getInterests(){
+        NCRemotes.getInterests(handleInterests);
+    }
+    
+    function handleInterests(result,event){
+        if(event.type == 'exception'){
+            //logToConsole(event.message);
+        }else{
+            //interests=result;
+            showInterests(result);
+            
+            refreshResults();
+        }
+    }
+    
+    function showInterests(interests){
+        
+        var intDiv = j$('#interests');
+        
+        intDiv.html('');
+        
+        j$.each(interests, function(i, interest){
+            var btnSpan = j$("<span class='intBtns'></span>");
+            
+            createInterestBtn(interest.Name, interest.Id, btnSpan);
+            
+            intDiv.append(btnSpan);
+        });
+     }
+     
+     function removeInterest(intId){
+        NCRemotes.removeInterest(intId, function(result, event){
+            if(event.type == 'exception') {
+                  //logToConsole(event.message);
+            }
+            if(result){
+                showFeedback('Interest Removed');
+                getInterests();              
+            }            
+        });     
+     }
+
+    function getInterestResults(){
+        
+        retrievingInterestResults = true;
+        NCRemotes.getInterestResults(filters, resultsOnPage, handleInterestResults);
+    }
+    
+    function handleInterestResults(result,event){
+        if(event.type == 'exception'){
+            //logToConsole(event.message);
+            retrievingInterestResults = false;
+        }else{
+            //interestResults=result;
+            resultsOnPage += result.length;
+            showInterestResults(result);
+        }
+    }
+    
+    function showInterestResults(results){
+        
+        var resultsDiv = j$('#results');
+        
+        //resultsDiv.html('');
+        
+        j$.each(results, function(i, result){
+
+            //interestResults.push(result);
+            
+            var resultDiv= j$("<div class='resultDiv'></div>");
+            
+            var resLink = j$("<div class='resLinkDiv'><a href='/" + result.Id + "?activeTab=0' target='_blank' class='resLink'>" + result.Name + "</a></div>");
+            
+            var filterBtnSpan = j$("<span class='intBtn' style='font-size:.8em;'></span>");
+            
+            createInterestBtn(result.Google_Alert__r.Name, result.Google_Alert__c, filterBtnSpan);
+
+            var chatterBtnSpan = j$("<span class='chatBtn' style='font-size:.8em;'></span>");
+            
+            createChatterBtn(result.Id, chatterBtnSpan);
+            
+            var timeSourceSpan = j$("<span class='timeSource'></span>");
+            
+            timeSourceSpan.append(result.Source_URL__c + ' - added ' + result.Created_Date_Formatted__c);
+            
+            resultDiv.append(resLink, chatterBtnSpan, filterBtnSpan, timeSourceSpan);
+            
+            resultsDiv.append(resultDiv);
+        });
+        
+        retrievingInterestResults = false;
+     }
+     
+     function addFilter(filter){
+        if(filter != null && filter != '' && j$.inArray(filter, filters) == -1){
+		        
+		        filters.push(filter);
+
+            refreshResults(); 
+            
+            showFilters();
+        }
+
+     }
+     
+     function showFilters(){
+        var filterDiv = j$('#filters');
+        
+        filterDiv.html("<span style='font-size:.9em'>Filters: </span>")
+        
+        j$.each(filters, function(i, filter){
+        
+            filterDiv.append("<span style='font-size:1.5em'> " + filter + " </span>");
+            var removeLink = j$("<span style='font-size:.7em'><a href='#'>Remove Filter</a></span>");
+            removeLink.click(function(e){
+                removeFilter(filter);
+            });
+            removeLink.button( {
+                text:false,
+                icons: {
+                    primary: 'ui-icon-closethick'
+                }
+            });                
+            filterDiv.append(removeLink);
+        });    
+        
+        if(filters.length > 0){
+            filterDiv.css({
+                'padding':'1em 0em 1em 0em'
+            });
+        }else{
+            filterDiv.html('');
+            filterDiv.css({
+                'padding':'0em'
+            });            
+        } 
+     }
+     
+     function removeFilter(filter){
+        filters = j$.grep(filters, function(value){
+            return filter != value;
+        });
+        
+        showFilters();
+        
+        refreshResults();
+     }
+     
+     function refreshResults(){
+                  
+        j$('#results').html('');
+        resultsOnPage = 0;
+        getInterestResults();        
+     }
+
+    function getRecentInterests(){
+        NCRemotes.getRecentInterests(handleRecentInterests);
+    }
+     
+		function handleRecentInterests(result,event){
+		    if(event.type == 'exception'){
+		        alert(event.message);
+		    }else{
+		        showRecentInterests(result);		        
+		    }
+		}
+		
+		function showRecentInterests(interests){
+		    
+		    var intDiv = j$('#interestList');
+		    
+		    intDiv.html('');
+		    
+		    j$.each(interests, function(i, interest){
+		        var intBtn = j$("<a href='/" + interest.Id + "'>" + interest.Name + "</a>");
+		        
+		        intBtn.button();
+		        
+		        intDiv.append(intBtn);
+		    });
+		}
+		
+    function getActiveStories(){
+        NCRemotes.getActiveStories(handleActiveStories);
+    }
+    
+    function handleActiveStories(result,event){
+        if(event.type == 'exception'){
+            alert(event.message);
+        }else{
+            showActiveStories(result);
+        }
+    }
+    
+    function showActiveStories(results){
+        
+        var resultsDiv = j$('#storyList');
+        
+        j$.each(results, function(i, result){
+            
+            var resultDiv= j$("<div class='resultDiv'></div>");
+            
+            var resLink = j$("<div class='resLinkDiv'><a href='/" + result.Id + "?activeTab=0' target='_blank' class='resLink'>" + result.Name + "</a></div>");
+            
+            var intBtn = j$("<a href='/" + result.Google_Alert__c + "'>" + result.Google_Alert__r.Name + "</a>");
+            
+            intBtn.button();
+
+            var chatterBtnSpan = j$("<span class='chatBtn'></span>");
+            
+            createChatterBtn(result.Id, chatterBtnSpan);
+            
+            var timeSourceDiv = j$("<div class='timeSource' style='padding-bottom:.5em;'></div>");
+            
+            timeSourceDiv.append(result.Source_URL__c + ' - added ' + result.Created_Date_Formatted__c);
+            
+            resultDiv.append(resLink, timeSourceDiv, chatterBtnSpan, intBtn );
+            
+            resultsDiv.append(resultDiv);
+        });
+     }
+</script>
+<div id="newsCenterMain" style="width:70%;height:100%;float:left;">
+<div id="ncInfo" style="width:500px">
+<span id="infoIcon" class="ui-icon ui-icon-info" style="float:left;"></span>
+<div id="infoText" style="display:none;clear:left;">
+		<h2>Adding Interests</h2>
+		<p>
+		In the field below, type a search term and hit enter to add it to your interests. News Center will find stories matching your interests and notify you via Chatter.
+		To remove a term from your interests, click the term's "x" button.
+		</p>
+		<h2>Filtering the News List</h2>
+		<p>
+		Click the name of one or more of your interests to filter your news list. Click the "x" to remove a term from the filter list.
+		</p>
+		<h2>Join the Conversation</h2>
+		<p>
+		Below each article title, click the "+" to follow the article in Chatter. The number beside the chat bubble indicates the number of Chatter posts associated with the article. 
+		Click the chat bubble to go straight to the Chatter conversation.
+		</p>
+</div>
+</div>
+<div id="ncFeedback" style="display:none;">
+<span id="feedbackIcon" class="ui-icon ui-icon-circle-check" style="float:left;"></span>
+<div id="feedbackText" style="color:#777777;">
+</div>
+</div>
+<div id="interestAdd" style="width:100%;">
+<div id="searchField" style="width:600px;clear:left;">
+<input type="text" id="searchTerm" maxlength="80" style="width:500px;font-size:1.4em;"/><a href="#" id="addInterest">+</a>&nbsp;&nbsp;<span id="interestAddConfirm" >Interest Added</span>
+</div>
+</div>
+<div id="interests" style="width:100%;padding:1em 0em 1em 0em;font-size:.8em;">
+
+</div>
+<div id="filters"></div>
+<div id="results" style="width:100%;"></div>
+</div>
+<div id="recentActive" style="width:25%;float:left;">
+<div id="recentInterests" style="padding-top:1em;">
+<h2 style="font-size:1.4em;color:#777777;">Recent Interests</h2>
+<div id="interestList" style="font-size:.8em;padding-top:1em;"></div>
+</div>
+<div id="activeStories" style="padding-top:2em;">
+<h2 style="font-size:1.4em;color:#777777;">Active Stories</h2>
+<div id="storyList" style="font-size:.8em;"></div>
+</div>
+</div>
+
+</apex:component>

@@ -1,0 +1,92 @@
+<apex:page standardcontroller="Lead" showheader="false">
+<style type="text/css">
+table.vCard {
+    border-width: 2px 2px 2px 2px;
+    border-spacing: 0px;
+    border-style: solid solid solid solid;
+    border-color: gray gray gray gray;
+    border-collapse: collapse;
+    background-color: #BBBBBB;
+}
+table.vCard th {
+    border-width: 2px 2px 2px 2px;
+    padding: 2px 2px 2px 2px;
+    border-style: none none none none;
+    border-color: gray gray gray gray;
+    background-color: white;
+    -moz-border-radius: 0px 0px 0px 0px;
+}
+table.vCard td {
+    border-width: 2px 2px 2px 2px;
+    padding: 2px 2px 2px 2px;
+    border-style: none none none none;
+    border-color: gray gray gray gray;
+    Font-family: Calibri, Arial;
+    Font-size: 11pt;
+    background-color: #EEEEEE;
+    -moz-border-radius: 0px 0px 0px 0px;
+}
+
+
+</style>
+
+<table class="vCard">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td witdh="10px"></td><td width="400px"><B>{!Lead.Name}</B></td>
+    <td width="20px"/>
+</tr>
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td witdh="10px"></td><td>{!Lead.Company}</td>
+    <td width="20px"/>
+</tr>
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td witdh="10px"></td><td>{!Lead.Title}</td>
+    <td width="20px"/>
+</tr>
+<apex:outputpanel rendered="{!NOT(Lead.Email='')}">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td witdh="10px"></td><td>{!Lead.Email}</td>
+    <td width="20px"/>
+</tr>
+</apex:outputpanel>
+
+<apex:outputpanel rendered="{!NOT(Lead.MobilePhone='')}">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td witdh="10px"></td><td>{!Lead.MobilePhone}&nbsp;&nbsp;&nbsp; <font color="gray">(Mobile)</font></td>
+    <td width="20px"/>
+</tr>
+</apex:outputpanel>
+<apex:outputpanel rendered="{!NOT(Lead.Phone='')}">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td witdh="10px"></td><td>{!Lead.Phone} &nbsp;&nbsp;&nbsp;<font color="gray">(Work)</font></td>
+    <td width="20px"/>
+</tr>
+</apex:outputpanel>
+<apex:outputpanel rendered="{!NOT(Lead.Fax='')}">
+<tr>
+    <td width="40px" style="background-color:#BBBBBB;"></td><td witdh="10px"></td><td>{!Lead.Fax}&nbsp;&nbsp;&nbsp;<font color="gray">(Fax)</font></td>
+    <td width="20px"/>
+</tr>
+</apex:outputpanel>
+
+<tr>
+<td width="40px" style="background-color:#BBBBBB;"></td><td witdh="10px"/>
+<td>
+{!Lead.Street}<BR/>
+{!Lead.City}<BR/>
+{!Lead.State}<BR/>
+{!Lead.PostalCode}<BR/>
+{!Lead.Country}
+</td>
+<td width="20px"/>
+</tr>
+<tr>
+<td width="40px" style="background-color:#BBBBBB;"></td><td witdh="10px"/>
+<td>
+<a  href="/apex/GeneratevCardLead?id={!Lead.id}">Download</a>
+</td>
+<td width="20px"/>
+</tr>
+</table>
+
+</apex:page>
