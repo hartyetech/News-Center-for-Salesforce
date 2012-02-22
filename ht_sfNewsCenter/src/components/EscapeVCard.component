@@ -1,3 +1,0 @@
-<apex:component controller="EscapeVCardController" >
-<apex:attribute name="sValue" assignTo="{!inputText}" description="This is the string to be encoded." type="String" required="true"/>{!EscapedText}
-</apex:component>
