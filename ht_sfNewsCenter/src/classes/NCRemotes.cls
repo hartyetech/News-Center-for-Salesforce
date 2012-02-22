@@ -3,7 +3,7 @@ global class NCRemotes {
   @RemoteAction
     global static List<string> searchTermSuggest(string qry){
         list<string> suggest = new list<string>();
-    //test commit   
+  
     // create the filter text
     String filter = ' like \'%' + String.escapeSingleQuotes(qry) + '%\'';
     //begin building the dynamic soql query
