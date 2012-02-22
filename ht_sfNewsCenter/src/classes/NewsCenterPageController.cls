@@ -17,11 +17,13 @@ public class NewsCenterPageController {
 				alert=a;
 			}
 			
-			//if we didn't find one in the db...
+			//if we didn't find one in the db.
 			if(alert==null){
 				alert = new Google_Alert__c();
 				alert.name = searchTerm;
 				insert alert;
+				
+				//test comment
 			}
 		}
 	}
