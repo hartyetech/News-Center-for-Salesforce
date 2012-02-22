@@ -4,7 +4,7 @@ global class NCRemotes {
     global static List<string> searchTermSuggest(string qry){
         list<string> suggest = new list<string>();
         
-    //test pull 2
+    //test pull 3
     // create the filter text
     String filter = ' like \'%' + String.escapeSingleQuotes(qry) + '%\'';
     //begin building the dynamic soql query
