@@ -14,7 +14,7 @@ global class NCRemotes {
     // add the object and filter by name to the soql
     soql += ' from Google_Alert__c where name' + filter;
 
-    soql += ' limit 5';
+    soql += ' limit 5'; //test comment
 
     try {
       for(Google_Alert__c a : Database.query(soql))
