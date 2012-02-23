@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>CNA_Step_1</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1</shortDescription>
+        <value>Step 1: Email Services</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_1_1</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.1.1</shortDescription>
+        <value>Put what you like for the &quot;Email Service Name&quot; (try something like &quot;GoogleAlert&quot;);</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_1_2</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.1.2</shortDescription>
+        <value>For &quot;Apex Class&quot;, choose the &quot;GoogleAlertToChatter&quot; class;</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_1_3</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.1.3</shortDescription>
+        <value>Include &quot;googlealerts-noreply@google.com&quot; in the &quot;Accept Email From&quot; box;</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_1_4</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.1.4</shortDescription>
+        <value>Check the &quot;Active&quot; box.</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_1_5</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.1.5</shortDescription>
+        <value>Click the &quot;Save and New Email Address&quot; button;</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_1_6</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.1.6</shortDescription>
+        <value>Use the defaults, but add &quot;googlealerts-noreply@google.com&quot; to this new &quot;Accept Email From&quot; box.</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_1a</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.1a</shortDescription>
+        <value>Create a</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_1b</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.1b</shortDescription>
+        <value>to receive all your Google Alert emails</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_1link</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.1link</shortDescription>
+        <value>Salesforce Email Service</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_2a</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.2a</shortDescription>
+        <value>Copy the generated email address (it will end in a long string of letters.and.numbers.apex.salesforce.com);</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_2b</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.2b</shortDescription>
+        <value>Paste it here</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_1_2c</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 1.2c</shortDescription>
+        <value>and</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_2</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 2</shortDescription>
+        <value>Step 2: Page Layout</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_2_1</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 2.1</shortDescription>
+        <value>Add the &quot;Chatter News Alerts Status&quot; and &quot;Google Alert Search Term(s)&quot; fields to the Account page layout. Note that if you are using record types, you should add the values for this picklist to the appropriate account record types.</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_3</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 3</shortDescription>
+        <value>Step 3: Use it!</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_3_1</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 3.1</shortDescription>
+        <value>To begin receiving Google Alerts for this account as Chatter posts:
+   change the value of that &quot;Chatter News Alerts Status&quot; field to &quot;Sign Up&quot;.</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_3_2</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 3.2</shortDescription>
+        <value>To stop receiving Google Alerts for this account as Chatter posts:
+   change the value of that field to &quot;Cancel&quot;.</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_3_3</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 3.3</shortDescription>
+        <value>This application uses the account&apos;s name as default search term(s). You can change these terms as needed to make the alerts more relevant. Be sure to cancel the account&apos;s alert before making this change and then sign up the account again.</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_3_4</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 3.4</shortDescription>
+        <value>There are reports to help you manage usage in the &quot;Chatter News Alerts&quot; report folder.</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_4</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 4</shortDescription>
+        <value>Step 4: Uninstall</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_4_1</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 4.1</shortDescription>
+        <value>We&apos;re sad to see you go, but if the time has come to uninstall (or reinstall) follow these steps:</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_4_2</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 4.2</shortDescription>
+        <value>If you plan to reinstall a newer version of Chatter News Alerts, you can save your Account sign-ups and search terms by running the &quot;Accounts with Chatter News Alerts&quot; report in the &quot;Chatter News Alerts&quot; folder. Export that to .csv and save on your computer someplace handy.</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_4_3a</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 4.3a</shortDescription>
+        <value>Deactivate and delete the</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_4_3b</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 4.3b</shortDescription>
+        <value>you created when you first configured the application.</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_4_3link</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 4.3link</shortDescription>
+        <value>Email Service and associated Email Address</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_4_4link</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 4.4link</shortDescription>
+        <value>Uninstall the Chatter News Alerts package</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_4_5</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 4.5</shortDescription>
+        <value>If you reinstall Chatter News Alerts, you can restore your account sign-ups.</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_5</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 5</shortDescription>
+        <value>Step 5: Feedback</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_5_1a</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 5.1a</shortDescription>
+        <value>To suggest feature enhancements or report bugs, please post on the</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_5_1link</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 5.1link</shortDescription>
+        <value>Force.com Labs Discussion Board</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_5_2a</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 5.2a</shortDescription>
+        <value>And, if you&apos;ve liked this application, please leave a positive review on</value>
+    </labels>
+    <labels>
+        <fullName>CNA_Step_5_2link</fullName>
+        <categories>Chatter News Alerts</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CNA Step 5.2link</shortDescription>
+        <value>the AppExchange listing</value>
+    </labels>
+</CustomLabels>

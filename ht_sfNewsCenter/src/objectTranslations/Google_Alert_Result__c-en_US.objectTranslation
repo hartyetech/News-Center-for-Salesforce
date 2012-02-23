@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>News Center Story</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>News Center Stories</value>
+    </caseValues>
+    <fields>
+        <label><!-- Created Date Formatted --></label>
+        <name>Created_Date_Formatted__c</name>
+    </fields>
+    <fields>
+        <label><!-- News Center Interest --></label>
+        <name>Google_Alert__c</name>
+        <relationshipLabel><!-- News Center Stories --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Source URL --></label>
+        <name>Source_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- URL --></label>
+        <name>URL__c</name>
+    </fields>
+    <layouts>
+        <layout>Google Alert Result Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
