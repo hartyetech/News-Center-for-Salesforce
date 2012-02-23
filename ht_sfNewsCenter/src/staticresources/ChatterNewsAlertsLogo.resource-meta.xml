@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
-    <cacheControl>Private</cacheControl>
-    <contentType>image/png</contentType>
-    <description>Logo for the Chatter News Alerts application. 
-Uses CC-licensed art from: 
-- XCDD (http://xkcd.com/477/) 
-- Paul Downey (http://www.flickr.com/photos/psd/2731067095/)</description>
-</StaticResource>
